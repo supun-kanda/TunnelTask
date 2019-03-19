@@ -83,6 +83,10 @@ In Client/app.js refer following line numbers
 - 12: port which remote machine passes and your machine takes traffic
 - 13: web socket client working port. Please make sure to change it in Server/server.js from port 5000 as well.
 - 14: RSA private key location to log in without password. This way is mandotory because automatic commands messes when using key board inputs.
+## Dependencies
+- OpenSSH SSH client (remote login program): OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n  7 Dec 2017 ( basically installed)
+- node: v8.10.0
+- npm: 6.8.0
 
 ## Branch Tree Graph
 
