@@ -1,4 +1,4 @@
-var name,socket;
+var name; //the machine is identified through the name. can be either sender ot reciever
 var WebSocket = require('ws'),
 readline = require('readline');
 exec = require('child_process').exec,
@@ -8,7 +8,7 @@ rl = readline.createInterface({
   terminal: false
 }),
 
-pubIP = '3.83.36.159',
+pubIP = '18.206.151.210',
 L = '8000',
 S = '5000',
 keyPath = '/home/supunk/Documents/KEYS/myKey.pem',
@@ -17,8 +17,8 @@ remoteCommand = 'ssh -o \"StrictHostKeyChecking no\" -fN -R '+L+':localhost:22 u
 localCommand = 'ssh -o \"StrictHostKeyChecking no\" -fN -L '+S+':localhost:'+S+' ubuntu@' + pubIP + ' -i ' + keyPath,
 getCommand = 'ssh -o \"StrictHostKeyChecking no\" -fN -L '+L+':localhost:'+L+' ubuntu@' + pubIP + ' -i ' + keyPath,
 
-reciever = function (response) { //this response parameter is an event
-    data = JSON.parse(response.data);
+reciever = function (response) { //this response parameter is an event //when a message arrives this logic executes
+    var data = JSON.parse(response.data);
     if(data.name == name && data.success == true){
         console.log('(Sent Successful)');
     }
@@ -37,7 +37,7 @@ reciever = function (response) { //this response parameter is an event
     }else{console.log('Didnot Capture the msg',data)}
 },
 
-sender = function (request) {
+sender = function (request) { //request is a user written command //When user inputs a string this logic happens
     //console.log('Request %s',request)
     if(request == 'quit'){
         rl.close();
@@ -73,7 +73,7 @@ exec(localCommand,
         }
     }
 );
-socket = new WebSocket("ws://localhost:"+S);
+var socket = new WebSocket("ws://localhost:"+S);
 socket.onopen = function(event){
     console.log("Socket Success");
 };
